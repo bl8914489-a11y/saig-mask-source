@@ -1,0 +1,37 @@
+# Environment that produced the published numbers.
+# Tested on: Ubuntu 22.04, NVIDIA A100-80G / H20-96G / A800-80G, driver 595.71.05.
+# torch 2.5.1+cu124 requires sm_80/sm_90; Blackwell (sm_120) is NOT supported by this build.
+
+diffusers==0.31.0
+accelerate==1.1.1
+transformers==4.46.2
+huggingface_hub==0.25.2
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1
+numpy==1.26.0
+sentencepiece==0.2.0
+SwissArmyTransformer==0.4.12
+imageio==2.35.1
+imageio-ffmpeg==0.5.1
+moviepy==1.0.3
+scikit-video==1.1.11
+spacy==3.7.6
+einops==0.8.0
+pydantic==2.9.1
+opencv-python==4.10.0.84
+matplotlib==3.9.2
+markupsafe==2.1.5
+scikit-image==0.24.0
+pycocotools==2.0.8
+gem_torch
+open_clip_torch==2.24.0
+decord
+omegaconf
+h5py
+setuptools<81
+
+# spacy model (not on PyPI): en_core_web_lg 3.7.1
+#   pip install "en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.7.1/en_core_web_lg-3.7.1-py3-none-any.whl"
+# segment-anything:
+#   pip install segment-anything-py    (or: pip install git+https://github.com/facebookresearch/segment-anything.git)

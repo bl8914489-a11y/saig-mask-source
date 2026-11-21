@@ -1,0 +1,5 @@
+variant,mean_auroc,passes_075,margin_vs_centre,source
+time_averaged,0.6171,no,-0.2973,Appendix A
+first_frame_only,0.7664,yes,-0.1480,Appendix A
+time_averaged_smoothed,0.6474,no,-0.2670,Appendix A
+fade_mask_as_gt,0.6116,no,-0.3028,Appendix A

@@ -1,0 +1,28 @@
+# Large artefacts (kept out of git; see docs/DATA.md)
+*.tgz
+*.tar.gz
+*.zip
+*.mp4
+*.pt
+*.pth
+*.safetensors
+*.npy
+
+# Model weights / caches
+CogVideoX-5b/
+checkpoints/
+.cache/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Logs
+logs/
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*
