@@ -4,7 +4,7 @@ The repository ships code and measurement tables only. The heavy artefacts live 
 
 | Item | Value |
 |---|---|
-| File | `saig_results_20261121.tgz` |
+| File | `saig_results.tgz` |
 | Size | 45.7 MB |
 | SHA256 | `1cf07ae1221bf72675555c85f14ad55167156431fe3d264545b9a6ed77e5b9bc` |
 | Contents | 39 rendered videos, 17 `.npy` (g_id arrays and gate maps), 13 `.csv`, 39 per-run logs |

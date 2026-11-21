@@ -103,5 +103,5 @@ When the paper is published, please cite the article instead; the repository met
 ## What is deliberately *not* here
 
 - Model weights (CogVideoX-5b, SAM ViT-H) and the DAVIS dataset — download from their official sources, see `docs/REPRODUCE.md`.
-- The artefact bundle — attached to release `v1.5` (45.7 MB, SHA256 `1cf07ae1…b9bc`).
+- The artefact bundle — attached to release `v1.5.1` (45.7 MB, SHA256 `1cf07ae1…b9bc`).
 - The manuscript sources — kept out so that the code repository stays a code repository.

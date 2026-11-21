@@ -16,7 +16,7 @@
   "videos": 24
  },
  "artefact_bundle": {
-  "file": "saig_results_20261121.tgz",
+  "file": "saig_results.tgz",
   "size_bytes": 45651488,
   "sha256": "1cf07ae1221bf72675555c85f14ad55167156431fe3d264545b9a6ed77e5b9bc"
  },
@@ -322,8 +322,10 @@
    "sha256": "a5b0df8bb79ed65b20a9bbf8a0f30c6c8e75cdb3b9b672f90c51a4f4ed90eedc"
   },
   "RELEASE_NOTES_v1.5.md": {
-   "size": 1715,
-   "sha256": "ab546411eebaf7fdbbd23d52cc74306d6c46472b3ccf3d98463c0c3db4202b79"
+   "size": 1162,
+   "sha256": "42208cc1ca97e415f373142a4fe5a76ee39948ad6ba234e58937122aa2436ef9"
   }
- }
+ },
+ "release": "v1.5.1",
+ "repository": "https://github.com/bl8914489-a11y/saig-mask-source"
 }

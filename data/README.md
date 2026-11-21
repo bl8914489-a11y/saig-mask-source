@@ -30,4 +30,4 @@ Every number in the manuscript comes from one of these files. `verify_numbers.py
 
 ## What is deliberately not here
 
-The rendered videos, `g_id` arrays, gate maps and per-run logs are 45.7 MB and are attached to release `v1.5.1` as `saig_results_20261121.tgz` (SHA256 `1cf07ae1…b9bc`). See `docs/DATA.md`.
+The rendered videos, `g_id` arrays, gate maps and per-run logs are 45.7 MB and are attached to release `v1.5.1` as `saig_results.tgz` (SHA256 `1cf07ae1…b9bc`). See `docs/DATA.md`.

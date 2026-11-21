@@ -28,7 +28,7 @@ Datasets
 This study uses the publicly released DAVIS 2017 and YouTube-VOS datasets.
 No raw dataset footage is redistributed in this repository.
 
-The separately released artefact bundle (release v1.5, saig_results_20261121.tgz)
+The separately released artefact bundle (release v1.5.1, saig_results.tgz)
 contains videos derived from DAVIS 2017. DAVIS is released for research use;
 the derived videos are redistributed for reproducibility only, and the dataset
 licence continues to apply to any reuse of the underlying footage. The bundle is
