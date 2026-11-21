@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this code or the released measurement tables, please cite the paper and this repository."
+title: "Where Should the Keep-Mask Come From? Code, measurement tables and artefact bundle"
+abstract: >-
+  Analysis code and measurement tables for a controlled study of preservation-mask sources in
+  training-free video editing. The repository compares an external segmentation mask, a
+  self-attention-derived identity gate, and a parameter-free centred prior under an otherwise
+  identical pipeline, and ships a GPU-free script that recomputes every reported number.
+version: 1.5
+date-released: "2026-11-21"
+license: MIT
+repository-code: "https://github.com/bi8914489-a11y/REPO_NAME"
+type: software
+keywords:
+  - training-free video editing
+  - preservation mask
+  - self-attention
+  - negative result
+  - reproducibility
+authors:
+  - family-names: "TODO"
+    given-names: "TODO"
+    affiliation: "TODO"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+# When the paper is published, add a `preferred-citation:` block here, e.g.
+# preferred-citation:
+#   type: article
+#   title: "Where Should the Keep-Mask Come From? A Controlled Study of Mask Sources in Training-Free Video Editing"
+#   journal: "The Visual Computer"
+#   year: 2027
+#   doi: "10.1007/s00371-XXXXX"
