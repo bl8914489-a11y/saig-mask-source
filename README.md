@@ -4,6 +4,20 @@ Code and measurement tables for the study **“Where Should the Keep-Mask Come F
 
 The repository contains the analysis scripts, the per-sequence measurement tables, and a verification script that recomputes every headline number in the paper **without a GPU**. The large artefact bundle (39 output videos, `g_id` arrays, gate maps, per-run logs, 45.7 MB) is distributed separately — see [`docs/DATA.md`](docs/DATA.md).
 
+![Identity similarity of the three mask sources](figures/fig2_ids.png)
+
+*Identity similarity (ID-S) of the three arms over eight DAVIS sequences, with 95% bootstrap intervals. Both gates raise identity far above the external mask; the attention gate is only marginally ahead of a parameter-free spatial prior.*
+
+## At a glance
+
+| Question | Answer |
+|---|---|
+| Is attention mass an object selector? | No — AUROC 0.617 against 0.914 for a centred Gaussian that never sees the image |
+| Does a better gate fix the videos? | No — a +0.19 AUROC improvement changes ID-S by at most 0.023 |
+| Can any of the 108 sweep cells beat the prior? | No — best cell 0.860, still below 0.914 |
+| Is the negative result an artefact of the multiplicative gate? | No — removing the mask collapses ID-S to 0.01–0.06; an oracle mask and a boundary-refined mask do not beat the external mask |
+| What should practitioners do instead? | Keep the external mask; if cost matters, refine its boundary, do not replace it with attention mass |
+
 ---
 
 ## What the study asks
@@ -71,3 +85,22 @@ Code: MIT (see `LICENSE`). The pipeline builds on FADE (MIT) and HybridGL; the t
 ## Contact
 
 Corresponding author: *[to be filled]*
+
+## Cite this
+
+```bibtex
+@software{saig_keepmask_2026,
+  title  = {Where Should the Keep-Mask Come From? Code, measurement tables and artefact bundle},
+  year   = {2026},
+  note   = {Version 1.5},
+  url    = {https://github.com/bl8914489-a11y/saig-mask-source}
+}
+```
+
+When the paper is published, please cite the article instead; the repository metadata is also in `CITATION.cff`.
+
+## What is deliberately *not* here
+
+- Model weights (CogVideoX-5b, SAM ViT-H) and the DAVIS dataset — download from their official sources, see `docs/REPRODUCE.md`.
+- The artefact bundle — attached to release `v1.5` (45.7 MB, SHA256 `1cf07ae1…b9bc`).
+- The manuscript sources — kept out so that the code repository stays a code repository.

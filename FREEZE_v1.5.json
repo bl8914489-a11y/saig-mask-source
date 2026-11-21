@@ -262,8 +262,8 @@
    "sha256": "4f71104b5c53aaf1cee9830ae102147c4eedeb32392c6dd6d855ba8b46ebfd32"
   },
   "README.md": {
-   "size": 3962,
-   "sha256": "af681d0577e5a48830feb96385bbb1d623cd4f9732a5ff30ddc1d5536e4b3565"
+   "size": 5719,
+   "sha256": "b17657ab4472dc3b4f545bc6d80323b05f85b6ab4246ae75090d6ca688496f54"
   },
   "LICENSE": {
    "size": 1590,
@@ -278,9 +278,8 @@
    "sha256": "ff498ef99880a50fa2d0278b22530b93ea9a85d314521867c55b5d44f5f9ae8d"
   },
   "CITATION.cff": {
-   "size": 1303,
-   "sha256": "7dee77bb802b0bc688e53ebc86386c50f9424bed66fa6e0ec237c37b57f93e18"
+   "size": 1310,
+   "sha256": "a5b0df8bb79ed65b20a9bbf8a0f30c6c8e75cdb3b9b672f90c51a4f4ed90eedc"
   }
- },
- "repository": "https://github.com/bl8914489-a11y/saig-mask-source"
+ }
 }
