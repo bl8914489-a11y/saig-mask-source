@@ -262,12 +262,12 @@
    "sha256": "4f71104b5c53aaf1cee9830ae102147c4eedeb32392c6dd6d855ba8b46ebfd32"
   },
   "README.md": {
-   "size": 5719,
-   "sha256": "b17657ab4472dc3b4f545bc6d80323b05f85b6ab4246ae75090d6ca688496f54"
+   "size": 5774,
+   "sha256": "3c87af22b89ee3d6aa78fcb767cfb8682d941868c0a2a2848d448ea604d34ee6"
   },
   "LICENSE": {
-   "size": 1590,
-   "sha256": "c42618dfa276e9b33cd47d9653af843bcc549da72eed89f59e2f6450ff159836"
+   "size": 1075,
+   "sha256": "89df5cea8052d9921374de62a8ffaf8811c2636bac08ef3a4eefcbf42da22059"
   },
   "requirements.txt": {
    "size": 1055,

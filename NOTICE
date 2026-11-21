@@ -1,0 +1,41 @@
+Third-party notices
+===================
+
+This repository is released under the MIT licence (see LICENSE). It builds on,
+and patches code from, the following MIT-licensed projects:
+
+1. FADE — Frequency-Aware Diffusion Model Factorization for Video Editing
+   https://github.com/EternalEvan/FADE
+   MIT License, Copyright (c) 2025 Yixuan
+   Files derived from FADE: scripts/patch_fade_saig.py, scripts/patch_fade_saig_v2.py,
+   scripts/patch_guider_saig_gate.py, scripts/apply_saig_patches.py,
+   scripts/export_gid.py, scripts/export_gid_v3.py, scripts/export_gid_v4.py,
+   scripts/cap_qk.py, scripts/diag_gid.py, scripts/probe_hook.py
+
+2. HybridGL
+   https://github.com/fhgyuanshen/HybridGL
+   Files derived from HybridGL: the patched sampling helpers referenced in
+   docs/REPRODUCE.md (the patches are applied by the scripts above; no unmodified
+   third-party source is redistributed here).
+
+3. Segment Anything (SAM)
+   https://github.com/facebookresearch/segment-anything
+   Apache License 2.0. Used as an installed dependency; no source redistributed.
+
+Datasets
+--------
+
+This study uses the publicly released DAVIS 2017 and YouTube-VOS datasets.
+No raw dataset footage is redistributed in this repository.
+
+The separately released artefact bundle (release v1.5, saig_results_20261121.tgz)
+contains videos derived from DAVIS 2017. DAVIS is released for research use;
+the derived videos are redistributed for reproducibility only, and the dataset
+licence continues to apply to any reuse of the underlying footage. The bundle is
+not relicensed by the MIT licence of this repository.
+
+Model weights
+-------------
+
+CogVideoX-5b and the SAM ViT-H checkpoint are not redistributed. Download them
+from their official sources as described in docs/REPRODUCE.md.

@@ -80,7 +80,7 @@ The study uses the publicly released **DAVIS 2017** and **YouTube-VOS** datasets
 
 ## Licence
 
-Code: MIT (see `LICENSE`). The pipeline builds on FADE (MIT) and HybridGL; the text of the manuscript is not part of this repository.
+Code: MIT (see `LICENSE`); third-party notices and dataset terms are in `NOTICE`. The pipeline builds on FADE (MIT) and HybridGL; the text of the manuscript is not part of this repository.
 
 ## Contact
 
