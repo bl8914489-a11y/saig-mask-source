@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
 # 重建完成后：资产就位 + 双补丁 + 编译校验 + 数量核对
-# 用法：bash /root/deploy_assets.sh
+# 用法：bash /root/download_assets.sh
 # 判据：末尾出现 DEPLOY_OK，且 output=21 / gid=8 / masks=9 / 补丁各 1 处
 # =============================================================================
 exec > /root/deploy.log 2>&1
@@ -22,10 +22,10 @@ mkdir -p "$F"/{output,saig_out,masks,input,inversion,mask} "$P" /root/logs
 
 # ---------- 脚本 ----------
 cp -f "$S"/*.py "$S"/*.sh "$P"/ 2>/dev/null
-cp -f "$S/export_gid_v4.py" "$P/export_gid.py"        # 回退兼容名
-cp -f "$S/tonight_gpu.sh" /root/tonight_gpu.sh
+cp -f "$S/export_gid_rev1.py" "$P/export_gid_rev1.py"        # 回退兼容名
+cp -f "$S/run_all_night.sh" /root/run_all_night.sh
 cp -f "$S/budget_guard.sh" /root/budget_guard.sh
-chmod +x /root/tonight_gpu.sh /root/budget_guard.sh
+chmod +x /root/run_all_night.sh /root/budget_guard.sh
 
 # ---------- 已有产物 ----------
 cp -f /root/stage/output/*.mp4   "$F/output/"  2>/dev/null
@@ -35,7 +35,7 @@ cp -f /root/stage/masks/*.npy    "$F/masks/"    2>/dev/null
 # ---------- 补丁 ----------
 cd "$F" || die "cd FADE 失败"
 echo "=== PATCH1 插桩 ==="
-"$V" "$P/patch_fade_saig_v2.py" 2>&1 | tail -n 6 || die "插桩补丁执行失败"
+"$V" "$P/patch_fade_saig_rev1.py" 2>&1 | tail -n 6 || die "插桩补丁执行失败"
 grep -q "SAIG_SINK.append" diffusion_core/guiders/opt_guiders_cogvideo.py || die "插桩点缺失"
 echo "=== PATCH2 门控 ==="
 "$V" "$P/patch_guider_saig_gate.py" 2>&1 | tail -n 8 || die "门控补丁执行失败"

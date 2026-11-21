@@ -2,7 +2,7 @@
 """A/B 测试：同一段编辑，开 / 不开 cpu offload，测真实 s/it 与峰值显存。
 
 用法（pod 上，FADE 目录内）：
-    /root/venv310/bin/python /root/ab_offload.py camel 12
+    /root/venv310/bin/python /root/ab_test_offload.py camel 12
 
 判据：
     per_step(offload_off) < 0.8 × per_step(offload_on)  → 大显存卡值得加钱
@@ -113,7 +113,7 @@ def main():
     os.chdir(F)
     for need in ("inversion/%s.pt" % SEQ, "mask/%s.pt" % SEQ):
         if not os.path.exists(need):
-            print("AB_FAIL 缺 %s（先跑 tonight_gpu.sh 4 %s）" % (need, SEQ))
+            print("AB_FAIL 缺 %s（先跑 run_all_night.sh 4 %s）" % (need, SEQ))
             return 2
     log("AB_START seq=%s steps=%s" % (SEQ, STEPS))
     r_on = run("on")

@@ -3,21 +3,21 @@
 # SAIG 今晚 GPU 分阶段推进（幂等 / 带闸门 / 可断点续跑）
 #
 # 上机第一件事（语法闸门）：
-#   bash -n /root/tonight_gpu.sh && echo SYNTAX_OK
+#   bash -n /root/run_all_night.sh && echo SYNTAX_OK
 #
 # 用法：
-#   bash /root/tonight_gpu.sh 0        # 预检：GPU / 磁盘 / venv / 依赖
-#   bash /root/tonight_gpu.sh 1        # 重建环境（已存在则跳过，约 45–60 min）
-#   bash /root/tonight_gpu.sh 2        # 打两个补丁（插桩 + 门控）
-#   bash /root/tonight_gpu.sh 3        # 校验上传资产（8 g_id / 8 闸门图 / center / b0）
-#   bash /root/tonight_gpu.sh 4 bear   # 补 inversion+mask（可传段名，默认 8 段全做）
-#   bash /root/tonight_gpu.sh 5        # AUROC + 三零模型（闸门）
-#   bash /root/tonight_gpu.sh 6        # B1 两臂：默认 bear goat
-#   bash /root/tonight_gpu.sh 7        # ID-S / Sem-T（CPU）
-#   bash /root/tonight_gpu.sh 8        # 生成带 SHA256 的备份清单，尚未下载或停机
+#   bash /root/run_all_night.sh 0        # 预检：GPU / 磁盘 / venv / 依赖
+#   bash /root/run_all_night.sh 1        # 重建环境（已存在则跳过，约 45–60 min）
+#   bash /root/run_all_night.sh 2        # 打两个补丁（插桩 + 门控）
+#   bash /root/run_all_night.sh 3        # 校验上传资产（8 g_id / 8 闸门图 / center / b0）
+#   bash /root/run_all_night.sh 4 bear   # 补 inversion+mask（可传段名，默认 8 段全做）
+#   bash /root/run_all_night.sh 5        # AUROC + 三零模型（闸门）
+#   bash /root/run_all_night.sh 6        # B1 两臂：默认 bear goat
+#   bash /root/run_all_night.sh 7        # ID-S / Sem-T（CPU）
+#   bash /root/run_all_night.sh 8        # 生成带 SHA256 的备份清单，尚未下载或停机
 #
 # 说明：
-#   - 台账写 /root/logs/runlog5.csv（inversion/mask/编辑），不改动 runlog2.csv
+#   - 台账写 /root/logs/runlog_b1.csv（inversion/mask/编辑），不改动 runlog_b0.csv
 #   - 任一闸门不过：打印 GATE_FAIL 并以非零退出，绝不带错继续烧卡
 #   - 日志双写到 /root/logs/tonight_<HHMMSS>.log
 # =============================================================================
@@ -31,7 +31,7 @@ M=$ROOT/CogVideoX-5b
 DAVIS=$ROOT/DAVIS/JPEGImages/480p
 LOGDIR=${SAIG_LOG_DIR:-/root/logs}
 CONTROL=${SAIG_CONTROL:-$LOGDIR/control}
-LED=$LOGDIR/runlog5.csv
+LED=$LOGDIR/runlog_b1.csv
 LOG=$LOGDIR/tonight_$(date +%Y%m%d_%H%M%S)_$$.log
 mkdir -p "$LOGDIR" "$CONTROL/jobs"
 [ -f "$LED" ] || echo "seq,stage,wall_s,rc" > "$LED"
@@ -73,7 +73,7 @@ TGTOf() { case "$1" in
   rhino) echo hippopotamus;; *) fail "未知段名 $1";; esac; }
 
 verify_stage() {
-  "$VENV" "$SCR/verify_assets.py" stage --ledger "$LED" --seq "$1" \
+  "$VENV" "$SCR/verify_downloads.py" stage --ledger "$LED" --seq "$1" \
     --stage "$2" --path "$3" --kind "$4" >> "$LOG" 2>&1
 }
 
@@ -99,9 +99,9 @@ p1() {
     say "PHASE1_SKIP 环境基础验收通过"; return 0
   fi
   say "P1 重建环境（约 45–60 min）"
-  [ -f /root/rebuild_v2.sh ] || fail "缺 /root/rebuild_v2.sh"
+  [ -f /root/rebuild_env_step2.sh ] || fail "缺 /root/rebuild_env_step2.sh"
   local rebuildlog="$LOGDIR/rebuild_$(date +%Y%m%d_%H%M%S)_$$.log"
-  run_logged "$rebuildlog" env SAIG_REBUILD_LOG="$rebuildlog" bash /root/rebuild_v2.sh || fail "环境重建失败，见 $rebuildlog"
+  run_logged "$rebuildlog" env SAIG_REBUILD_LOG="$rebuildlog" bash /root/rebuild_env_step2.sh || fail "环境重建失败，见 $rebuildlog"
   grep -q REBUILD_OK "$rebuildlog" || fail "rebuild 未打印 REBUILD_OK，看 $rebuildlog"
   [ -d "$M" ] || fail "缺模型目录 $M"
   [ -x "$VENV" ] || fail "缺 venv $VENV"
@@ -112,7 +112,7 @@ p1() {
 p2() {
   cd "$FADE" 2>/dev/null || fail "无 $FADE"
   say "P2 打补丁"
-  out=$("$VENV" "$SCR/patch_fade_saig_v2.py" 2>&1); echo "$out" | tee -a "$LOG"
+  out=$("$VENV" "$SCR/patch_fade_saig_rev1.py" 2>&1); echo "$out" | tee -a "$LOG"
   case "$out" in *"RESULT: PATCH_V2_OK"*|*"PATCH1_SKIP_ALREADY"*) ;; *) fail "插桩补丁失败";; esac
   out=$("$VENV" "$SCR/patch_guider_saig_gate.py" 2>&1); echo "$out" | tee -a "$LOG"
   case "$out" in *"RESULT: PATCH_OK"*|*"ALREADY_PATCHED"*) ;; *) fail "门控补丁失败";; esac
@@ -163,7 +163,7 @@ p4() {
         --video_path "input/$SEQ.mp4" --output_path "inversion/$SEQ.partial.pt" --fps 4 --device cuda:0
       rc=$?
       if [ "$rc" -eq 0 ]; then
-        "$VENV" "$SCR/verify_assets.py" tensor --kind inversion --path "inversion/$SEQ.partial.pt" >> "$LOG" 2>&1
+        "$VENV" "$SCR/verify_downloads.py" tensor --kind inversion --path "inversion/$SEQ.partial.pt" >> "$LOG" 2>&1
         rc=$?
       fi
       if [ "$rc" -eq 0 ]; then mv "inversion/$SEQ.partial.pt" "inversion/$SEQ.pt" || rc=$?; fi
@@ -180,7 +180,7 @@ p4() {
         --ref_text "a $SUB" --device cuda:0
       rc=$?
       if [ "$rc" -eq 0 ]; then
-        "$VENV" "$SCR/verify_assets.py" tensor --kind mask --path "mask/$SEQ.partial.pt" >> "$LOG" 2>&1
+        "$VENV" "$SCR/verify_downloads.py" tensor --kind mask --path "mask/$SEQ.partial.pt" >> "$LOG" 2>&1
         rc=$?
       fi
       if [ "$rc" -eq 0 ]; then mv "mask/$SEQ.partial.pt" "mask/$SEQ.pt" || rc=$?; fi
@@ -233,7 +233,7 @@ p6() {
         --mask_path "mask/$SEQ.pt" --config_path configs/bear.yaml --fps 4 --output_video_path "$tmp"
       rc=$?
       if [ "$rc" -eq 0 ]; then grep -q 'SAIG_GATE_APPLIED' "$runlog" || rc=65; fi
-      if [ "$rc" -eq 0 ]; then "$VENV" "$SCR/verify_assets.py" video --path "$tmp" >> "$runlog" 2>&1; rc=$?; fi
+      if [ "$rc" -eq 0 ]; then "$VENV" "$SCR/verify_downloads.py" video --path "$tmp" >> "$runlog" 2>&1; rc=$?; fi
       if [ "$rc" -eq 0 ]; then mv "$tmp" "$OUT" || rc=$?; fi
       echo "$SEQ,b1_$ARM,$(( $(date +%s) - t0 )),$rc" >> "$LED"
       [ "$rc" -eq 0 ] || fail "$SEQ $ARM 失败，见 $runlog"
@@ -252,7 +252,7 @@ p7() {
     SUB=$(SUBof "$SEQ") || fail "未知段名"
     TGT=$(TGTOf "$SEQ") || fail "未知段名"
     for file in "output/b0_$SEQ.mp4" "output/b1_$SEQ.mp4" "output/b1c_$SEQ.mp4"; do
-      "$VENV" "$SCR/verify_assets.py" video --path "$file" >> "$LOG" 2>&1 || fail "视频未通过验收 $file"
+      "$VENV" "$SCR/verify_downloads.py" video --path "$file" >> "$LOG" 2>&1 || fail "视频未通过验收 $file"
     done
     out="$LOGDIR/metrics_$SEQ.csv"
     run_logged "$LOG" env HF_HUB_ENABLE_HF_TRANSFER=0 "$VENV" "$SCR/metrics_compare.py" \
@@ -261,13 +261,13 @@ p7() {
       --videos "b0=output/b0_$SEQ.mp4" "gate=output/b1_$SEQ.mp4" "center=output/b1c_$SEQ.mp4" \
       || fail "指标计算失败 $SEQ"
   done
-  "$VENV" "$SCR/verify_assets.py" metrics --directory "$LOGDIR" --seqs $seqs \
+  "$VENV" "$SCR/verify_downloads.py" metrics --directory "$LOGDIR" --seqs $seqs \
     --out "$LOGDIR/metrics_all.csv" >> "$LOG" 2>&1 || fail "指标汇总未通过验收"
   say "PHASE7_OK $LOGDIR/metrics_all.csv"
 }
 
 p8() {
-  "$VENV" "$SCR/backup_manifest.py" prepare --root "$ROOT" --logs "$LOGDIR" \
+  "$VENV" "$SCR/make_output_manifest.py" prepare --root "$ROOT" --logs "$LOGDIR" \
     --destination "$ROOT/backup_snapshot" || fail "备份清单生成失败"
   say "BACKUP_READY 本机拉取并校验后方可确认备份完成"
 }

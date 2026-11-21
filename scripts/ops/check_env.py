@@ -1,6 +1,6 @@
 """Pre-flight check for the SAIG run.  Nothing is modified; it only reports.
 
-Usage:  python scripts/env_check.py
+Usage:  python scripts/check_env.py
 Exit code 0 = every hard requirement met, 1 = something must be fixed.
 """
 

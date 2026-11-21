@@ -2,7 +2,7 @@
 """计算论文表 2/表 3 的 95% CI（对 8 段做配对 bootstrap）。
 
 用法：python ci_table.py
-输出：work/ci_table.csv（供论文引用）+ 控制台
+输出：work/confidence_intervals.csv（供论文引用）+ 控制台
 
 方法：B = 20000，seed = 20261121；统计量为跨段均值；配对差直接对每段差值重采样。
 """
@@ -14,9 +14,9 @@ import statistics
 
 B = 20000
 SEED = 20261121
-AUROC = r"F:\deepseek\work\auroc_a800.csv"
+AUROC = r"F:\deepseek\work\auroc_gate_metric.csv"
 METRICS = r"F:\deepseek\work\metrics_all.csv"
-OUT = r"F:\deepseek\work\ci_table.csv"
+OUT = r"F:\deepseek\work\confidence_intervals.csv"
 SEQS = ["bear", "camel", "cows", "dog", "elephant", "flamingo", "goat", "rhino"]
 
 

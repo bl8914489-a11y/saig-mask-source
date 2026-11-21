@@ -65,9 +65,10 @@ See [`docs/REPRODUCE.md`](docs/REPRODUCE.md). Short version:
 ## Repository layout
 
 ```
-scripts/     analysis + experiment scripts (id export, AUROC, masks, gate injection, metrics, sweep, controls)
-data/        measurement tables behind every number and figure (CSV/JSON)
-figures/     paper figures (Fig. 1-4)
+scripts/     5 paper-facing entry points + pipeline/ · analysis/ · figures/ · ops/
+             (index: scripts/README.md)
+data/        measurement tables behind every number and figure (index: data/README.md)
+figures/     paper figures (Fig. 1-4) and the social preview card
 docs/        REPRODUCE.md (full pipeline) · DATA.md (artefact bundle)
 verify_numbers.py   recomputes the paper numbers from data/
 ```

@@ -4,12 +4,12 @@
 #   export FADE_DIR=~/FADE
 #   export COGVIDEO_PATH=/path/to/CogVideoX-5b        # 或 zai-org/CogVideoX-5b（在线）
 #   # 模式 A（默认，最忠实基线）：直接跑 FADE 自带的 bear 演示，用 FADE 自己的长 prompt
-#   bash scripts/02_smoke_run.sh
+#   bash scripts/smoke_test.sh
 #   # 模式 B：换成我们自己的输入与短 prompt
 #   export VIDEO=$FADE_DIR/input/bear.mp4
 #   export INIT_PROMPT="a bear walking in the forest"
 #   export EDIT_PROMPT="a panda walking in the forest"
-#   SMOKE_MODE=generated bash scripts/02_smoke_run.sh
+#   SMOKE_MODE=generated bash scripts/smoke_test.sh
 #
 # 产出 logs/G1_<timestamp>/：cmd.txt stdout.log time.txt gpu.csv summary.txt latents_shape.txt
 #
@@ -50,7 +50,7 @@ echo "== G1 smoke test ==" | tee "$OUT/head.txt"
 } | tee -a "$OUT/head.txt"
 
 # 1. 环境快照（不修改任何东西）
-python scripts/env_check.py 2>&1 | tee "$OUT/env.txt"
+python scripts/check_env.py 2>&1 | tee "$OUT/env.txt"
 
 # 2. 运行前基线显存 + 1 Hz 采样
 IDLE_MIB=$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits | head -1 | tr -d ' ')

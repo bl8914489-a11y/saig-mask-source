@@ -1,7 +1,7 @@
 """导出 SAIG 的 g_id（不跑完整 50 步管线，只在 1 次前向后从 FADE 内部取 q/k）。
 
 用法（FADE 目录、venv 下）：
-  python export_gid.py --video input/bear.mp4 --out saig_out/bear_gid.npy
+  python export_gid_rev1.py --video input/bear.mp4 --out saig_out/bear_gid.npy
 
 v3 变更（2026-11-19 01:20，本机实测依据）：
   - pod 上插桩实际抓到的 q/k 是 4-D (B,H,S,d)：opt_guiders_cogvideo.py:486 与 :818

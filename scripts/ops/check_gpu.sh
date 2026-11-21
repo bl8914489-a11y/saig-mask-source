@@ -6,7 +6,7 @@
 #       历史数字 79 GiB 是「不开 offload」的峰值，开 offload 后无人量过。
 #
 # 用法（pod 上，FADE 目录已有 inversion/mask）：
-#   bash /root/gpu_probe.sh camel
+#   bash /root/check_gpu.sh camel
 # 判据：
 #   PEAK_TORCH_GB < 42  → 48 GB 卡可用（留 6 GB 余量）
 #   42–46               → 临界，需降分辨率/步数再试

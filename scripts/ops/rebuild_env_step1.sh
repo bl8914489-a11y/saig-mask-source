@@ -3,10 +3,10 @@
 # 国内云（优云智算等）环境重建：带镜像回退，适配 GitHub/HF 不通或很慢的情况
 #
 # 用法：
-#   bash rebuild_cn.sh              # 自动探测并选择镜像
-#   PIP=tsinghua HF=hf-mirror bash rebuild_cn.sh   # 手动指定
+#   bash rebuild_env_step1.sh              # 自动探测并选择镜像
+#   PIP=tsinghua HF=hf-mirror bash rebuild_env_step1.sh   # 手动指定
 #
-# 与 rebuild_v3_resume.sh 的区别：所有外部下载都有国内替代源，失败会明确报出是哪一段
+# 与 rebuild_env_step3_resume.sh 的区别：所有外部下载都有国内替代源，失败会明确报出是哪一段
 # =============================================================================
 exec > /root/rebuild_cn.log 2>&1
 set -x

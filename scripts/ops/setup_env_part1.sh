@@ -11,7 +11,7 @@
 #   8 DAVIS JPEGImages（HF 数据集 zip）
 #   9 四类补丁（offload / rope / tag / sink / gate）
 #  10 验收
-# 用法：bash setup_a800.sh     日志：/root/setup_a800.log
+# 用法：bash setup_env_part1.sh     日志：/root/setup_a800.log
 # =============================================================================
 exec > /root/setup_a800.log 2>&1
 set -x

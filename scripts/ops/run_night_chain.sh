@@ -2,7 +2,7 @@
 # P6 validates P4 ledger records and saved tensors before running any edit.
 set -euo pipefail
 CONTROL=${SAIG_CONTROL:-/root/logs/control}
-SCRIPT=${SAIG_PIPELINE:-/root/tonight_gpu.sh}
+SCRIPT=${SAIG_PIPELINE:-/root/run_all_night.sh}
 if [ "$#" -eq 0 ]; then seqs=(camel dog flamingo); else seqs=("$@"); fi
 while pgrep -f '[t]onight_gpu.sh 4' >/dev/null; do
   [ ! -f "$CONTROL/STOP" ] || exit 3

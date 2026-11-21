@@ -13,7 +13,7 @@ The archive contains:
 - `output/` — 39 rendered videos: `b0_*` (external mask), `b1_*` (attention gate), `b1c_*` (centred prior), `b1m_*` (middle-frame gate), `b1a0.3_*` / `b1a0.7_*` (gate strength), `m5_nomask_*`, `m6_gtmask_*`, `m3_refine_*` (control arms)
 - `saig_out/` — 8 × `*_gid.npy`, per-frame attention mass (13 × 1350)
 - `masks/` — 9 × `gid_*.npy`, gate maps at 60 × 90
-- `logs/` — `runlog2.csv`, `runlog5.csv`, per-run logs, AUROC and metric tables
+- `logs/` — `runlog_b0.csv`, `runlog_b1.csv`, per-run logs, AUROC and metric tables
 
 ## Verify without a GPU
 

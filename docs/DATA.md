@@ -23,7 +23,7 @@ output/     39 videos
             m3_refine_<seq>.mp4          control arm: boundary-refined mask
 saig_out/   8 x *_gid.npy       per-frame attention mass, (13, 1350)
 masks/      9 x gid_*.npy       gate maps at 60x90 (+ gid_center.npy, gid_mid_*.npy)
-logs/       runlog2.csv, runlog5.csv, per-run logs, AUROC and metric tables
+logs/       runlog_b0.csv, runlog_b1.csv, per-run logs, AUROC and metric tables
 ```
 
 ## Where to put it

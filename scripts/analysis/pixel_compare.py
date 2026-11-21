@@ -2,9 +2,9 @@
 """三臂像素对照 v2：支持任意段（B0 / B1-gate / B1-center），本机零 GPU。
 
 用法：
-  python pixel_compare_v2.py --seqs camel dog flamingo
+  python pixel_compare_rev1.py --seqs camel dog flamingo
 输出：
-  <outdir>/pixel_metrics_v2.csv        每个段 × 每个时刻 × 三个对照对
+  <outdir>/pixel_metrics.csv        每个段 × 每个时刻 × 三个对照对
   <outdir>/compare_<seq>_t6.png        该段 t=6 s 的三臂 + 两张差值热图
 """
 import argparse
@@ -125,7 +125,7 @@ def main():
         print("SEQ_DONE", seq, flush=True)
 
     if rows:
-        csvp = os.path.join(a.out, "pixel_metrics_v2.csv")
+        csvp = os.path.join(a.out, "pixel_metrics.csv")
         with open(csvp, "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=["seq", "pair", "t", "MAE", "PSNR", "SSIM", "dfrac15", "dfrac30"])
             w.writeheader()

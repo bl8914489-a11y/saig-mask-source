@@ -1,11 +1,11 @@
 """FADE 插桩 v2：在 opt_guiders_cogvideo.py 的**两处** patched_forward 内埋点 + 给 42 个 block 打层号。
 
-为什么是 v2：本地旧版 patch_fade_saig.py 只插了 1 处（replace(...,1)），实测 CAPTURED=0；
+为什么是 v2：本地旧版 patch_fade_saig_rev1.py 只插了 1 处（replace(...,1)），实测 CAPTURED=0；
 两处都插才得到 CAPTURED=8（档案第 5 章第 5 轮结论）。本版按"两处 + 异常打印 + half 拷贝"实现。
 
 用法（在 pod 上、FADE 目录内）：
-    python patch_fade_saig_v2.py --check   # 只检查锚点
-    python patch_fade_saig_v2.py           # 打补丁（自动备份、幂等）
+    python patch_fade_saig_rev1.py --check   # 只检查锚点
+    python patch_fade_saig_rev1.py           # 打补丁（自动备份、幂等）
 
 判据：
     - 脚本输出 PATCH1_OK_2SITES 与 PATCH2_OK

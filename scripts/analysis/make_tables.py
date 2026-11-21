@@ -2,14 +2,14 @@
 """从实验产物生成 n=8 的论文表格（Table 3 三臂 + 汇总），数据驱动、不写死数字。
 
 输入：
-  /root/logs/runlog5.csv          （编辑台账：seq,stage,wall_s,rc）
+  /root/logs/runlog_b1.csv          （编辑台账：seq,stage,wall_s,rc）
   /root/logs/metrics_all.csv      （p7 汇总）
   /root/logs/auroc_yun.csv        （闸门 AUROC）
 输出：
   /root/logs/table3_8seq.csv      （段 × 臂 的 ID-S / Sem-T）
   /root/logs/table_summary.json   （给论文用的汇总数字）
 
-用法：/root/venv310/bin/python /root/make_tables_v2.py
+用法：/root/venv310/bin/python /root/make_tables.py
 """
 import csv
 import json
@@ -61,7 +61,7 @@ def main():
         csv.writer(f).writerows(out_rows)
 
     # 台账统计
-    led = read_csv(os.path.join(LOGS, "runlog5.csv"))
+    led = read_csv(os.path.join(LOGS, "runlog_b1.csv"))
     edits = [r for r in led if "b1" in r.get("stage", "")]
     ok = [r for r in edits if r.get("rc") == "0"]
     walls = [int(r["wall_s"]) for r in ok if r.get("wall_s", "").isdigit()]

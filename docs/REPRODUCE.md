@@ -44,7 +44,7 @@ Expected: `offload 1 / tag 1 / rope 1 / gate 1 / sink 2`.
 ```bash
 export SAIG_CAPTURE=1
 cd FADE
-python <repo>/scripts/export_gid_v4.py --video input/camel.mp4 --out saig_out/camel_gid.npy
+python <repo>/scripts/export_gid_rev1.py --video input/camel.mp4 --out saig_out/camel_gid.npy
 unset SAIG_CAPTURE
 
 python <repo>/scripts/auroc_gid.py --gid_dir saig_out --ann DAVIS/Annotations/480p --out auroc.csv

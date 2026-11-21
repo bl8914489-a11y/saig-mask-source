@@ -42,7 +42,7 @@ def boot_ci(xs, b=B, seed=SEED):
 
 def main():
     # ---- AUROC table ----
-    a = [r for r in rows("auroc_a800.csv") if r.get("auc_gid")]
+    a = [r for r in rows("auroc_gate_metric.csv") if r.get("auc_gid")]
     gid = [float(r["auc_gid"]) for r in a]
     cg = [float(r["center_gauss"]) for r in a]
     d = [g - c for g, c in zip(gid, cg)]
@@ -87,14 +87,14 @@ def main():
     # ---- control arms ----
     ctl = 0
     for s_name in ("camel", "dog", "flamingo"):
-        p = os.path.join(DATA, "metrics_p05_%s.csv" % s_name)
+        p = os.path.join(DATA, "metrics_control_%s.csv" % s_name)
         if os.path.exists(p):
             with open(p, encoding="utf-8-sig") as f:
                 ctl += len([r for r in csv.DictReader(f) if (r.get("video") or "").strip()])
     chk(ctl == 18, "control arms: 3 sequences x 6 arms (got %d)" % ctl)
 
     # ---- CI table consistency ----
-    ci = {r["quantity"]: r for r in rows("ci_table.csv")}
+    ci = {r["quantity"]: r for r in rows("confidence_intervals.csv")}
     chk(abs(float(ci["AUROC(g_id)"]["ci_lo"]) - 0.583) < 5e-3, "AUROC CI lower ~0.583")
     chk(abs(float(ci["ID-S gate - centre"]["ci_hi"]) - 0.116) < 5e-3, "gate-centre CI upper ~0.116")
 

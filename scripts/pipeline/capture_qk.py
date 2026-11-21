@@ -2,7 +2,7 @@
 """保存 q/k 供聚合方式扫描（不用重跑：一次前向把每层 q/k 存盘）。
 
 用法（FADE 目录内，SAIG_CAPTURE=1）：
-  /root/venv310/bin/python /root/cap_qk.py camel
+  /root/venv310/bin/python /root/capture_qk.py camel
 输出：/root/qk/<seq>_L<NN>.pt   dict(q=half(4D or 3D), k=..., shape=...)
 """
 import os

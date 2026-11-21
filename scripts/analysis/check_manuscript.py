@@ -48,7 +48,7 @@ chk(any("Ethics approval" in x for x in decl), "有 Ethics approval 声明")
 chk(any("[FAMILY NAME" in x for x in decl), "标题页有作者占位符")
 
 # 4) 数字复算
-rows = [r for r in csv.DictReader(open(os.path.join(DATA, "auroc_a800.csv"), encoding="utf-8-sig"))
+rows = [r for r in csv.DictReader(open(os.path.join(DATA, "auroc_gate_metric.csv"), encoding="utf-8-sig"))
         if r.get("auc_gid")]
 a = [float(r["auc_gid"]) for r in rows]
 chk(abs(statistics.mean(a) - 0.617) < 0.001 and len(rows) == 8, "AUROC 复算 0.617 n=8")

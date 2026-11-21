@@ -6,8 +6,8 @@
   3) m(p) -> g_id 的形状与取值范围正确（S = 潜帧数 × 1350）。
 
 用法（在 FADE 目录下）：
-  python /root/saig/saig_project/scripts/probe_hook.py --frames 8  --steps 1
-  python /root/saig/saig_project/scripts/probe_hook.py --frames 49 --steps 1
+  python /root/saig/saig_project/scripts/probe_patched_layers.py --frames 8  --steps 1
+  python /root/saig/saig_project/scripts/probe_patched_layers.py --frames 49 --steps 1
 
 设计取舍：
   * 8 帧（3 潜帧）时**不开 offload**，显存够，先验证机制；
